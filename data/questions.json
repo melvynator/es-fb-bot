@@ -1,0 +1,149 @@
+{
+  "questions": [
+  {
+    "value": "hi",
+    "type": "conversational",
+    "id": 0,
+    "parent": 0
+  },
+  {
+    "value": "hey",
+    "type": "conversational",
+    "id": 1,
+    "parent": 0
+  },
+  {
+    "value": "hello",
+    "type": "conversational",
+    "id": 2,
+    "parent": 0
+  },
+  {
+    "value": "yo",
+    "type": "conversational",
+    "id": 3,
+    "parent": 0
+  },
+  {
+    "value": "What's up?",
+    "type": "conversational",
+    "id": 4,
+    "parent": 1
+  },
+  {
+    "value": "How are you?",
+    "type": "conversational",
+    "id": 5,
+    "parent": 1
+  },
+  {
+    "value": "How is it going?",
+    "type": "conversational",
+    "id": 6,
+    "parent": 1
+  },
+  {
+    "value": "How are you doing?",
+    "type": "conversational",
+    "id": 7,
+    "parent": 1
+  },
+  {
+    "value": "What is your purpose?",
+    "type": "conversational",
+    "id": 8,
+    "parent": 2
+  },
+  {
+    "value": "Who are you?",
+    "type": "conversational",
+    "id": 9,
+    "parent": 3
+  },
+  {
+    "value": "What can you do for me?",
+    "type": "conversational",
+    "id": 10,
+    "parent": 4
+  },
+  {
+    "value": "How can you serve me?",
+    "type": "conversational",
+    "id": 11,
+    "parent": 4
+  },
+  {
+    "value": "Can you create something?",
+    "type": "conversational",
+    "id": 13,
+    "parent": 5
+  },
+  {
+    "value": "Are you a robot?",
+    "type": "conversational",
+    "id": 14,
+    "parent": 3
+  },
+  {
+    "value": "Do you like movies?",
+    "type": "conversational",
+    "id": 15,
+    "parent": 6
+  },
+  {
+    "value": "What kind of movies do you like?",
+    "type": "conversational",
+    "id": 16,
+    "parent": 6
+  },
+  {
+    "value": "Do you like music?",
+    "type": "conversational",
+    "id": 17,
+    "parent": 7
+  },
+  {
+    "value": "What kind of music do you like?",
+    "type": "conversational",
+    "id": 18,
+    "parent": 7
+  },
+  {
+    "value": "Do you like cooking?",
+    "type": "conversational",
+    "id": 19,
+    "parent": 8
+  },
+  {
+    "value": "What is your favorite meal?",
+    "type": "conversational",
+    "id": 20,
+    "parent": 8
+  },
+  {
+    "value": "Do you like reading?",
+    "type": "conversational",
+    "id": 21,
+    "parent": 9
+  },
+  {
+    "value": "What is your favorite book?",
+    "type": "conversational",
+    "id": 22,
+    "parent": 9
+  },
+  {
+    "value": "Do you like reading?",
+    "type": "conversational",
+    "id": 21,
+    "parent": 9
+  },
+  {
+    "value": "What is the weather?",
+    "type": "external",
+    "id": 22,
+    "parent": 10
+  }
+
+]
+}

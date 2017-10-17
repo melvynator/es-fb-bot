@@ -18,7 +18,7 @@ def verify():
             return "Verification token mismatch", 403
         return request.args["hub.challenge"], 200
 
-    return "Hello world", 200
+    return "Verification endpoint", 200
 
 
 @app.route('/', methods=['POST'])
@@ -35,7 +35,7 @@ def webhook():
                         send_message(sender_id, "I'm back bitch...! {0}".format(sender_id))
         return "ok", 200
     except:
-        return "ok", 200 # Messenger excpect to always have a 200
+        return "ok", 200 # Messenger always expect a 200
 
 
 def send_message(recipient_id, message_text):
@@ -62,7 +62,7 @@ def send_message(recipient_id, message_text):
         log(r.text)
 
 
-def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
+def log(msg, *args, **kwargs):
     try:
         if type(msg) is dict:
             msg = json.dumps(msg)
@@ -70,7 +70,7 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
             msg = str(msg).format(*args, **kwargs)
         print("{}: {}".format(datetime.now(), msg))
     except UnicodeEncodeError:
-        pass  # squash logging errors in case of non-ascii text
+        pass
     sys.stdout.flush()
 
 

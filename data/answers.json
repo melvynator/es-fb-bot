@@ -1,0 +1,53 @@
+{
+  "answers": [
+    {
+      "value": "Hi! I'm CX763! I'm a robot created by Melvyn. I'm here to help you! Ask me question like: What is the weather in Paris?, Give me a cooking recipe? What can I do for you?",
+      "id" : 0
+    },
+    {
+      "value": "Well I'm fine... I guess... You know I don't have self awarness right?",
+      "id" : 1
+    },
+    {
+      "value": "My purpose? To serve of course!",
+      "id" : 2
+    },
+    {
+      "value": "I'm CX763! I'm a robot created by Melvyn. I'm here to help you! Ask me question like: What is the weather in Paris?, Give me a cooking recipe? What can I do for you?",
+      "id" : 3
+    },
+    {
+      "value": "I can help you with simple tasks like giving you the weather for a given city or giving you some cooking recipes!",
+      "id" : 4
+    },
+    {
+      "value": "I'm not human I cannot create something I don't know :(",
+      "id" : 5
+    },
+    {
+      "value": "I'm a huge fan of Star Wars!!",
+      "id" : 6
+    },
+    {
+      "value": "Rock'n roll baby!!!",
+      "id" : 7
+    },
+    {
+      "value": "My creator is a chef! I learned a lot from him!",
+      "id" : 8
+    },
+    {
+      "value": "I'm a big reader man! David Gemmel, Terry Goodkind, nice stuff!",
+      "id" : 9
+    },
+    {
+      "value": "Sure! the weather in {0}:",
+      "id" : 10,
+      "url": "WEATHER_API"
+    },
+    {
+      "value": "Sorry man but I don't get it :(, ask me question like: What is the weather in Paris, Give me a cooking recipe, etc...",
+      "id" : 11
+    }
+  ]
+}

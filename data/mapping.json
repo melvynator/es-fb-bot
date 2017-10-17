@@ -1,0 +1,35 @@
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0
+    }
+  },
+  "mappings": {
+      "answer": {
+        "properties": {
+          "value": {
+            "type": "text",
+            "analyzer": "standard"
+          },
+          "url": {
+            "type": "keyword"
+          }
+        }
+      },
+      "question": {
+        "_parent": {
+          "type": "question"
+        },
+        "properties": {
+          "value": {
+            "type": "text",
+            "analyzer": "standard"
+          },
+          "type": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+}
