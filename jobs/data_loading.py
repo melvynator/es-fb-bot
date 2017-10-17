@@ -1,5 +1,4 @@
 from elasticsearch import Elasticsearch
-from settings import BONSAI_URL
 import os, re, logging
 
 # Log transport details (optional):
