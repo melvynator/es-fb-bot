@@ -2,7 +2,6 @@ import os
 import sys
 from datetime import datetime
 from elasticsearch import Elasticsearch
-from settings import BONSAI_URL
 import re, logging
 import json
 import requests
