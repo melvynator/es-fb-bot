@@ -53,7 +53,8 @@ def webhook():
                         sender_id = messaging_event["sender"]["id"]
                         message_text = messaging_event["message"]["text"]
                         parent = find_question(message_text)
-                        send_message(sender_id, parent)
+                        message_to_send = find_answers(parent)
+                        send_message(sender_id, message_to_send)
         return "ok", 200
     except:
         return "ok", 200 # Messenger always expect a 200
@@ -77,6 +78,11 @@ def find_question(message):
         return 11  # Fall back answer
     else:
         return int(response["hits"]["hits"][0]["_parent"])
+
+
+def find_answers(answer_id):
+    response = ES.get(index=INDEX_NAME, doc_type="answer", id=answer_id)
+    return response["source"]["value"]
 
 
 def send_message(recipient_id, message_text):
