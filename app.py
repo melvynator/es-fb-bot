@@ -54,6 +54,7 @@ def webhook():
                         message_text = messaging_event["message"]["text"]
                         parent = find_question(message_text)
                         message_to_send = find_answers(parent)
+                        log(message_to_send)
                         send_message(sender_id, message_to_send)
         return "ok", 200
     except:
