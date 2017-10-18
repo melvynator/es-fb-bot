@@ -64,7 +64,7 @@ def find_question(message):
         "query": {
             "more_like_this": {
                 "fields": ["value"],
-                "like": "message",
+                "like": message,
                 "min_term_freq": 1,
                 "min_doc_freq": 1,
                 "analyzer": "english"
