@@ -83,7 +83,7 @@ def find_question(message):
 
 def find_answers(answer_id):
     response = ES.get(index=INDEX_NAME, doc_type="answer", id=answer_id)
-    return response["source"]["value"]
+    return response["_source"]["value"]
 
 
 def send_message(recipient_id, message_text):
