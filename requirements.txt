@@ -8,3 +8,4 @@ flask_sqlalchemy==2.2
 requests==2.13.0
 gunicorn==19.6.0
 elasticsearch~=5.4.0
+certifi

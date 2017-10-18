@@ -1,18 +1,39 @@
 import os
 import sys
-import json
 from datetime import datetime
-
+from elasticsearch import Elasticsearch
+from settings import BONSAI_URL
+import re, logging
+import json
 import requests
 from flask import Flask, request
+
+# Log transport details (optional):
+logging.basicConfig(level=logging.INFO)
+
+# Parse the auth and host from env:
+bonsai = os.environ['BONSAI_URL'] # Production
+
+auth = re.search('https://(.*)@', bonsai).group(1).split(':')
+host = bonsai.replace('https://%s:%s@' % (auth[0], auth[1]), '')
+
+# Connect to cluster over SSL using auth for best security:
+es_header = [{
+	'host': host,
+	'port': 443,
+	'use_ssl': True,
+	'http_auth': (auth[0], auth[1])
+}]
+
+# Instantiate the new Elasticsearch connection:
+ES = Elasticsearch(es_header)
+INDEX_NAME = "bot_data"
 
 app = Flask(__name__)
 
 
 @app.route('/', methods=['GET'])
 def verify():
-    # when the endpoint is registered as a webhook, it must echo back
-    # the 'hub.challenge' value it receives in the query arguments
     if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
         if not request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
             return "Verification token mismatch", 403
@@ -32,14 +53,34 @@ def webhook():
                     if messaging_event.get("message"):
                         sender_id = messaging_event["sender"]["id"]
                         message_text = messaging_event["message"]["text"]
-                        send_message(sender_id, "I'm back bitch...! {0}".format(sender_id))
+                        parent = find_question(message_text)
+                        send_message(sender_id, parent)
         return "ok", 200
     except:
         return "ok", 200 # Messenger always expect a 200
 
 
-def send_message(recipient_id, message_text):
+def find_question(message):
+    body = {
+        "query": {
+            "more_like_this": {
+                "fields": ["value"],
+                "like": "message",
+                "min_term_freq": 1,
+                "min_doc_freq": 1,
+                "analyzer": "english"
+            }
+        },
+        "size": 1
+    }
+    response = ES.search(index=INDEX_NAME, doc_type="question", body=body)
+    if response["hits"]["total"] == 0:
+        return 11  # Fall back answer
+    else:
+        return int(response["hits"]["hits"][0]["_parent"])
 
+
+def send_message(recipient_id, message_text):
     log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
 
     params = {

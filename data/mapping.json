@@ -10,7 +10,7 @@
         "properties": {
           "value": {
             "type": "text",
-            "analyzer": "standard"
+            "analyzer": "english"
           },
           "url": {
             "type": "keyword"
@@ -19,12 +19,12 @@
       },
       "question": {
         "_parent": {
-          "type": "question"
+          "type": "answer"
         },
         "properties": {
           "value": {
             "type": "text",
-            "analyzer": "standard"
+            "analyzer": "english"
           },
           "type": {
             "type": "keyword"
