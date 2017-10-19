@@ -4,7 +4,6 @@ from settings import BONSAI_URL
 import os, re, logging
 import json
 import requests
-import string
 
 # Log transport details (optional):
 logging.basicConfig(level=logging.INFO)
@@ -43,10 +42,14 @@ body = {
 			},
 			"size": 1
 		}
-
-translator = str.maketrans('', '', string.punctuation)
-s = 'string with "punctuation" inside of it! Does this work? I hope so.'
-res = s.translate(translator)
+res = es.search(index=INDEX_NAME, doc_type="question", body=body)
 print(res)
-
+parent_id = res["hits"]["hits"][0]["_parent"]
+parent = es.get(index=INDEX_NAME, doc_type="answer", id=int(parent_id))
+print(parent)
+result = parent["_source"]["url_API"].format("UCJFp8uSYCjXOMnkUyb3CQ3Q", YOUTUBE_KEY)
+response = requests.get(result)
+video_urls = [item["id"]["videoId"] for item in response.json()["items"]]
+print(video_urls)
+#  Verify that Python can talk to Bonsai (optional):
 #  es.ping()

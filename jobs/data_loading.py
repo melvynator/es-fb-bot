@@ -1,14 +1,14 @@
 from elasticsearch import Elasticsearch
 import os, re, logging
 import json
-# from settings import BONSAI_URL
+from settings import BONSAI_URL
 
 # Log transport details (optional):
 logging.basicConfig(level=logging.INFO)
 
 # Parse the auth and host from env:
-bonsai = os.environ['BONSAI_URL'] # Production
-# bonsai = BONSAI_URL  # Local
+#bonsai = os.environ['BONSAI_URL'] # Production
+bonsai = BONSAI_URL  # Local
 print(bonsai)
 
 auth = re.search('https://(.*)@', bonsai).group(1).split(':')
