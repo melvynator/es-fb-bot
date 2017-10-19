@@ -110,7 +110,7 @@ def send_message(recipient_id, messages):
                     "id": recipient_id
                 },
                 "message": {
-                    "text_attachment": message
+                    "attachment": message
                 }
             })
         else:
