@@ -7,6 +7,7 @@ import json
 import requests
 from flask import Flask, request
 import random
+import string
 
 # Log transport details (optional):
 logging.basicConfig(level=logging.INFO)
@@ -55,7 +56,7 @@ def webhook():
                         message_text = messaging_event["message"]["text"]
                         parent = find_question(message_text)
                         answer = ES.get(index=INDEX_NAME, doc_type="answer", id=parent)
-                        message_to_send = answer_management(answer)
+                        message_to_send = answer_management(answer, message_text)
                         log(message_to_send)
                         send_message(sender_id, message_to_send)
         return "ok", 200
@@ -83,12 +84,24 @@ def find_question(message):
         return int(response["hits"]["hits"][0]["_parent"])
 
 
-def answer_management(answer):
+def answer_management(answer, user_query):
     if answer["_id"] == "8":
-        result = answer["_source"]["url_API"].format("UCJFp8uSYCjXOMnkUyb3CQ3Q", os.environ['YOUTUBE_API_KEY'])
-        response = requests.get(result)
+        youtube_query = answer["_source"]["url_API"].format("UCJFp8uSYCjXOMnkUyb3CQ3Q", os.environ['YOUTUBE_API_KEY'])
+        response = requests.get(youtube_query)
         video = random.choice([item["id"]["videoId"] for item in response.json()["items"]])
         messages = [answer["_source"]["value"], answer["_source"]["url"].format(video)]
+    elif answer["_id"] == "10":
+        if " in " not in user_query:
+            messages = ["I didn't quite get the city. Ask me something like: What is the weather in Hong Kong?"]
+        else:
+            translator = str.maketrans('', '', string.punctuation)
+            city = user_query.split(" in ")[1].translate(translator).replace(" ", "%20")
+            log(city)
+            response = requests.get(answer["_source"]["url_API"].format(city))
+            log(response)
+            forecast = response["query"]["results"]["forecast"]["0"]
+            messages = [answer["_source"]["value"].format(city,forecast["date"],
+                        (forecast["high"] - 32)/1.8, (int(forecast["low"]) - 32)/1.8, forecast["text"])]
     else:
         messages = [answer["_source"]["value"]]
     return messages
@@ -104,24 +117,14 @@ def send_message(recipient_id, messages):
         headers = {
             "Content-Type": "application/json"
         }
-        if "https://" in message:
-            data = json.dumps({
-                "recipient": {
-                    "id": recipient_id
-                },
-                "message": {
-                    "attachment": message
-                }
-            })
-        else:
-            data = json.dumps({
-                "recipient": {
-                    "id": recipient_id
-                },
-                "message": {
-                    "text": message
-                }
-            })
+        data = json.dumps({
+            "recipient": {
+                "id": recipient_id
+            },
+            "message": {
+                "text": message
+            }
+        })
         r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
         if r.status_code != 200:
             log(r.status_code)

@@ -155,6 +155,18 @@
     "type": "external",
     "id": 24,
     "parent": 10
+  },
+  {
+    "value": "Can you give me the weather forecasting?",
+    "type": "external",
+    "id": 25,
+    "parent": 10
+  },
+  {
+    "value": "What is the weather in ?",
+    "type": "external",
+    "id": 25,
+    "parent": 10
   }
 
 ]
