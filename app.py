@@ -102,11 +102,12 @@ def answer_management(answer, user_query):
             log(forecast)
             log(city)
             log(forecast["date"])
-            log((int(forecast["high"]) - 32)/1.8)
+            log(int((int(forecast["high"]) - 32)/1.8))
             log(forecast["text"])
-            log(answer["_source"]["value"])
+            log(answer)
             messages = [answer["_source"]["value"].format(city, forecast["date"],
-                        (forecast["high"] - 32)/1.8, (int(forecast["low"]) - 32)/1.8, forecast["text"])]
+                                                          int((int(forecast["high"]) - 32) / 1.8),
+                                                          int((int(forecast["low"]) - 32)/1.8), forecast["text"])]
     else:
         messages = [answer["_source"]["value"]]
     return messages
