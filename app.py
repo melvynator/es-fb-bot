@@ -84,7 +84,7 @@ def find_question(message):
 
 
 def answer_management(answer):
-    if answer["_id"] == 8:
+    if answer["_id"] == "8":
         result = answer["_source"]["url_API"].format("UCJFp8uSYCjXOMnkUyb3CQ3Q", os.environ['YOUTUBE_API_KEY'])
         response = requests.get(result)
         video = random.choice([item["id"]["videoId"] for item in response.json()["items"]])
