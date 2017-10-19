@@ -96,18 +96,14 @@ def answer_management(answer, user_query):
         else:
             translator = str.maketrans('', '', string.punctuation)
             city = user_query.split(" in ")[1].translate(translator).replace(" ", "%20")
-            log(answer["_source"]["url_API"].format(city))
             response = requests.get(answer["_source"]["url_API"].format(city))
-            forecast = response.json()["query"]["results"]["channel"]["item"]["forecast"][0]
-            log(forecast)
-            log(city)
-            log(forecast["date"])
-            log(int((int(forecast["high"]) - 32)/1.8))
-            log(forecast["text"])
-            log(answer)
-            messages = [answer["_source"]["value"].format(city, forecast["date"],
-                                                          int((int(forecast["high"]) - 32) / 1.8),
-                                                          int((int(forecast["low"]) - 32)/1.8), forecast["text"])]
+            if response.json()["query"]["results"]:
+                forecast = response.json()["query"]["results"]["channel"]["item"]["forecast"][0]
+                messages = [answer["_source"]["value"].format(city.replace("%20", " "), forecast["date"],
+                                                              int((int(forecast["high"]) - 32) / 1.8),
+                                                              int((int(forecast["low"]) - 32)/1.8), forecast["text"])]
+            else:
+                messages = ["I didn't found this city!"]
     else:
         messages = [answer["_source"]["value"]]
     return messages
