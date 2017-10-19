@@ -97,6 +97,7 @@ def answer_management(answer, user_query):
             translator = str.maketrans('', '', string.punctuation)
             city = user_query.split(" in ")[1].translate(translator).replace(" ", "%20")
             log(city)
+            log(answer["_source"]["url_API"].format(city))
             response = requests.get(answer["_source"]["url_API"].format(city))
             log(response)
             forecast = response["query"]["results"]["forecast"]["0"]
