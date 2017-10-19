@@ -101,6 +101,7 @@ def answer_management(answer, user_query):
             response = requests.get(answer["_source"]["url_API"].format(city))
             log(response)
             forecast = response.json()["query"]["results"]["forecast"]["0"]
+            log(forecast)
             messages = [answer["_source"]["value"].format(city,forecast["date"],
                         (forecast["high"] - 32)/1.8, (int(forecast["low"]) - 32)/1.8, forecast["text"])]
     else:
