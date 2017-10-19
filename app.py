@@ -102,7 +102,7 @@ def answer_management(answer, user_query):
             log(forecast)
             log(city)
             log(forecast["date"])
-            log((forecast["high"] - 32)/1.8)
+            log((int(forecast["high"]) - 32)/1.8)
             log(forecast["text"])
             log(answer["_source"]["value"])
             messages = [answer["_source"]["value"].format(city, forecast["date"],
