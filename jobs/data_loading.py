@@ -1,6 +1,7 @@
 from elasticsearch import Elasticsearch
 import os, re, logging
 import json
+# from settings import BONSAI_URL
 
 # Log transport details (optional):
 logging.basicConfig(level=logging.INFO)
@@ -50,6 +51,8 @@ for answer in answers["answers"]:
 	body = {"value": answer["value"]}
 	if "url" in answer:
 		body["url"] = answer["url"]
+	if "url_API" in answer:
+		body["url_API"] = answer["url_API"]
 	es.create(index=INDEX_NAME, doc_type="answer", id=answer["id"], body=body)
 
 with open("../data/questions.json", mode='r') as questions_file:

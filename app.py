@@ -6,6 +6,7 @@ import re, logging
 import json
 import requests
 from flask import Flask, request
+import random
 
 # Log transport details (optional):
 logging.basicConfig(level=logging.INFO)
@@ -53,7 +54,8 @@ def webhook():
                         sender_id = messaging_event["sender"]["id"]
                         message_text = messaging_event["message"]["text"]
                         parent = find_question(message_text)
-                        message_to_send = find_answers(parent)
+                        answer = ES.get(index=INDEX_NAME, doc_type="answer", id=parent)
+                        message_to_send = answer_management(answer)
                         log(message_to_send)
                         send_message(sender_id, message_to_send)
         return "ok", 200
@@ -81,32 +83,39 @@ def find_question(message):
         return int(response["hits"]["hits"][0]["_parent"])
 
 
-def find_answers(answer_id):
-    response = ES.get(index=INDEX_NAME, doc_type="answer", id=answer_id)
-    return response["_source"]["value"]
+def answer_management(answer):
+    if answer["_id"] == 8:
+        result = answer["_source"]["url_API"].format("UCJFp8uSYCjXOMnkUyb3CQ3Q", os.environ['YOUTUBE_API_KEY'])
+        response = requests.get(result)
+        video = random.choice([item["id"]["videoId"] for item in response.json()["items"]])
+        messages = [answer["_source"]["value"], answer["_source"]["url"].format(video)]
+    else:
+        messages = [answer["_source"]["value"]]
+    return messages
 
 
-def send_message(recipient_id, message_text):
-    log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
+def send_message(recipient_id, messages):
+    for message in messages:
+        log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message))
 
-    params = {
-        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
-    }
-    headers = {
-        "Content-Type": "application/json"
-    }
-    data = json.dumps({
-        "recipient": {
-            "id": recipient_id
-        },
-        "message": {
-            "text": message_text
+        params = {
+            "access_token": os.environ["PAGE_ACCESS_TOKEN"]
         }
-    })
-    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
-    if r.status_code != 200:
-        log(r.status_code)
-        log(r.text)
+        headers = {
+            "Content-Type": "application/json"
+        }
+        data = json.dumps({
+            "recipient": {
+                "id": recipient_id
+            },
+            "message": {
+                "text": message
+            }
+        })
+        r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+        if r.status_code != 200:
+            log(r.status_code)
+            log(r.text)
 
 
 def log(msg, *args, **kwargs):

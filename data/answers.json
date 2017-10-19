@@ -33,7 +33,9 @@
       "id" : 7
     },
     {
-      "value": "My creator is a chef! I learned a lot from him!",
+      "value": "Look at this recipe! Yummy isn't it?",
+      "url_API": "https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId={0}&maxResults=50&key={1}",
+      "url": "https://www.youtube.com/watch?v={0}",
       "id" : 8
     },
     {

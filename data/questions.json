@@ -109,15 +109,27 @@
     "parent": 7
   },
   {
-    "value": "Do you like cooking?",
-    "type": "conversational",
+    "value": "What should I cook?",
+    "type": "external",
     "id": 19,
     "parent": 8
   },
   {
-    "value": "What is your favorite meal?",
-    "type": "conversational",
-    "id": 20,
+    "value": "What's cooking?",
+    "type": "external",
+    "id": 25,
+    "parent": 8
+  },
+  {
+    "value": "Can you give me a recipe?",
+    "type": "external",
+    "id": 27,
+    "parent": 8
+  },
+  {
+    "value": "Any meals idea?",
+    "type": "external",
+    "id": 26,
     "parent": 8
   },
   {
