@@ -96,10 +96,9 @@ def answer_management(answer, user_query):
         else:
             translator = str.maketrans('', '', string.punctuation)
             city = user_query.split(" in ")[1].translate(translator).replace(" ", "%20")
-            log(city)
             log(answer["_source"]["url_API"].format(city))
             response = requests.get(answer["_source"]["url_API"].format(city))
-            log(response)
+            log(response.json())
             forecast = response.json()["query"]["results"]["channel"]["item"]["forecast"]["0"]
             log(forecast)
             messages = [answer["_source"]["value"].format(city,forecast["date"],
