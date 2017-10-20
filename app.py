@@ -56,6 +56,7 @@ def webhook():
                         message_text = messaging_event["message"]["text"]
                         parent = find_question(message_text)
                         answer = ES.get(index=INDEX_NAME, doc_type="answer", id=parent)
+                        log(answer)
                         message_to_send = answer_management(answer, message_text)
                         log(message_to_send)
                         send_message(sender_id, message_to_send)
@@ -72,7 +73,7 @@ def find_question(message):
                 "like": message,
                 "min_term_freq": 1,
                 "min_doc_freq": 1,
-                "analyzer": "english"
+                "analyzer": "bot_analyzer"
             }
         },
         "size": 1
@@ -129,7 +130,7 @@ def send_message(recipient_id, messages):
                 "text": message
             }
         }
-        if "http" in message:
+        if "http://" in message:
             data["message"] = {
                 "attachment": {
                     "type": "image",
