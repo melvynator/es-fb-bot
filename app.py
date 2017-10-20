@@ -104,6 +104,8 @@ def answer_management(answer, user_query):
                                                               int((int(forecast["low"]) - 32)/1.8), forecast["text"])]
             else:
                 messages = ["I didn't found this city!"]
+    elif answer["_id"] == "11":
+        messages = [answer["_source"]["value"], answer["_source"]["url"]]
     else:
         messages = [answer["_source"]["value"]]
     return messages
@@ -119,14 +121,23 @@ def send_message(recipient_id, messages):
         headers = {
             "Content-Type": "application/json"
         }
-        data = json.dumps({
+        data = {
             "recipient": {
                 "id": recipient_id
             },
             "message": {
                 "text": message
             }
-        })
+        }
+        if "http" in message:
+            data["message"] = {
+                "attachment": {
+                    "type": "image",
+                    "payload": {
+                        "url": message
+                    }
+                }
+            }
         r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
         if r.status_code != 200:
             log(r.status_code)

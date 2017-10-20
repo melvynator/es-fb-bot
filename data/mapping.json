@@ -11,6 +11,12 @@
               "cunt, bastard, bitch, biatch, shit, fuck, asshole, fucking, fucked, retard=> shit"
             ]
           }
+        },
+        "analyzer": {
+          "bot_analyzer": {
+            "tokenizer": "standard",
+            "filter": ["synonym"]
+          }
         }
       }
     }
@@ -20,7 +26,7 @@
         "properties": {
           "value": {
             "type": "text",
-            "analyzer": "english"
+            "analyzer": "bot_analyzer"
           },
           "url": {
             "type": "keyword"
@@ -37,7 +43,7 @@
         "properties": {
           "value": {
             "type": "text",
-            "analyzer": "english"
+            "analyzer": "bot_analyzer"
           },
           "type": {
             "type": "keyword"

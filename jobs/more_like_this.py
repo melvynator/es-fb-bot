@@ -34,10 +34,10 @@ body = {
 			"query": {
 				"more_like_this": {
 					"fields": ["value"],
-					"like": "What is the weather in Paris?",
+					"like": "fuck you",
 					"min_term_freq": 1,
 					"min_doc_freq": 1,
-					"analyzer": "english"
+					"analyzer": "bot_analyzer"
 				}
 			},
 			"size": 1
@@ -47,9 +47,5 @@ print(res)
 parent_id = res["hits"]["hits"][0]["_parent"]
 parent = es.get(index=INDEX_NAME, doc_type="answer", id=int(parent_id))
 print(parent)
-result = parent["_source"]["url_API"].format("UCJFp8uSYCjXOMnkUyb3CQ3Q", YOUTUBE_KEY)
-response = requests.get(result)
-video_urls = [item["id"]["videoId"] for item in response.json()["items"]]
-print(video_urls)
 #  Verify that Python can talk to Bonsai (optional):
 #  es.ping()
