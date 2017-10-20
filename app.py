@@ -138,7 +138,7 @@ def send_message(recipient_id, messages):
                     }
                 }
             }
-        r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+        r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=json.dump(data))
         if r.status_code != 200:
             log(r.status_code)
             log(r.text)
