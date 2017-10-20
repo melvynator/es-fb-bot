@@ -2,7 +2,17 @@
   "settings": {
     "index": {
       "number_of_shards": 1,
-      "number_of_replicas": 0
+      "number_of_replicas": 0,
+      "analysis" : {
+        "filter" : {
+          "synonym" : {
+            "type" : "synonym",
+            "synonyms" : [
+              "cunt, bastard, bitch, biatch, shit, fuck, asshole, fucking, fucked, retard=> shit"
+            ]
+          }
+        }
+      }
     }
   },
   "mappings": {

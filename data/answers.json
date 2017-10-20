@@ -43,13 +43,17 @@
       "id" : 9
     },
     {
-      "value": "Sure! the weather in {0}: \n Date: {1} \n Highest temperature: {2} \n Lowest temperature: {3} \n Comment: {4}",
+      "value": "Here it comes! The weather in {0}:\nDate: {1} \nHighest temperature: {2}°C \nLowest temperature: {3}°C \nComment: {4}",
       "id" : 10,
       "url_API": "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22{0}%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"
     },
     {
-      "value": "Sorry man but I don't get it :(, ask me question like: What is the weather in Paris, Give me a cooking recipe, etc...",
+      "value": "You better show me some respect!",
       "id" : 11
+    },
+    {
+      "value": "Sorry man but I don't get it :(, ask me question like: What is the weather in Paris, Give me a cooking recipe, etc...",
+      "id" : 12
     }
   ]
 }

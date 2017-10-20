@@ -79,7 +79,7 @@ def find_question(message):
     }
     response = ES.search(index=INDEX_NAME, doc_type="question", body=body)
     if response["hits"]["total"] == 0:
-        return 11  # Fall back answer
+        return 12  # Fall back answer
     else:
         return int(response["hits"]["hits"][0]["_parent"])
 
