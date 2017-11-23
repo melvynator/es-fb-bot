@@ -36,7 +36,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def verify():
-    print(request.header)
+    log(request.header)
     if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
         if not request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
             return "Verification token mismatch", 403
