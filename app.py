@@ -8,6 +8,7 @@ import requests
 from flask import Flask, request
 import random
 import string
+import certifi
 
 # Log transport details (optional):
 logging.basicConfig(level=logging.INFO)
