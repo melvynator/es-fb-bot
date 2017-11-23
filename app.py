@@ -35,6 +35,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def verify():
+    print(request.headers)
     if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
         if not request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
             return "Verification token mismatch", 403
@@ -56,7 +57,6 @@ def webhook():
                         message_text = messaging_event["message"]["text"]
                         parent = find_question(message_text)
                         answer = ES.get(index=INDEX_NAME, doc_type="answer", id=parent)
-                        log(answer)
                         message_to_send = answer_management(answer, message_text)
                         log(message_to_send)
                         send_message(sender_id, message_to_send)
@@ -79,6 +79,7 @@ def find_question(message):
         "size": 1
     }
     response = ES.search(index=INDEX_NAME, doc_type="question", body=body)
+    log(response)
     if response["hits"]["total"] == 0:
         return 12  # Fall back answer
     else:

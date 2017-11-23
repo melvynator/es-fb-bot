@@ -22,20 +22,6 @@
     }
   },
   "mappings": {
-      "answer": {
-        "properties": {
-          "value": {
-            "type": "text",
-            "analyzer": "bot_analyzer"
-          },
-          "url": {
-            "type": "keyword"
-          },
-          "url_API": {
-            "type": "keyword"
-          }
-        }
-      },
       "question": {
         "_parent": {
           "type": "answer"

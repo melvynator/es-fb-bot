@@ -35,20 +35,6 @@
             "type": "keyword"
           }
         }
-      },
-      "question": {
-        "_parent": {
-          "type": "answer"
-        },
-        "properties": {
-          "value": {
-            "type": "text",
-            "analyzer": "bot_analyzer"
-          },
-          "type": {
-            "type": "keyword"
-          }
-        }
       }
     }
 }

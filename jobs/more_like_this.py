@@ -1,5 +1,5 @@
 from elasticsearch import Elasticsearch
-from settings import BONSAI_URL
+from settings import ELASTICSEARCH_URL
 #from settings import YOUTUBE_KEY
 import os, re, logging
 import json
@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO)
 
 # Parse the auth and host from env:
 #bonsai = os.environ['BONSAI_URL'] # Production
-bonsai = BONSAI_URL  # Local
+bonsai = ELASTICSEARCH_URL  # Local
 print(bonsai)
 
 auth = re.search('https://(.*)@', bonsai).group(1).split(':')
